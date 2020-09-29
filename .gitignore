@@ -1,0 +1,4 @@
+jenkins/data/*
+kanboard/data/*
+gitbucket/data/*
+kanboard/ssl/*

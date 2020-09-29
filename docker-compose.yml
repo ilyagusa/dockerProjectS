@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  gitbucket:
+    build: ./gitbucket
+    image: gitbucket
+    volumes:
+      - ./gitbucket/data/:/gitbucket
+    ports:
+      - "3000:8080"  
+
+  kanboard:
+    image: kanboard/kanboard:latest
+    volumes:
+      - ./kanboard/data:/var/www/app/data
+      - ./kanboard/plugins:/var/www/app/plugins      
+    ports:
+      - "80:80"
+      - "443:443" 
+
+  jenkins:
+    container_name: jenkins
+    build:
+      context: jenkins
+      args:
+        JENKINS_VERSION: 2.235
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - /tmp:/var/jenkins_home/secrets/
+      - ./jenkins/data:/var/jenkins_home/
